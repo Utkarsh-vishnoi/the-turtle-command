@@ -24,7 +24,7 @@
 	<div class="row">
 		<div class="col-xs-6 col-md-4">
 			<h1>Grid</h1>
-			<canvas id="screen" width="400px" height="400px">Your browser doesn't support canvas. Please upgrade your browser to HTML5.</canvas>
+			<canvas id="screen" width="385px" height="400px">Your browser doesn't support canvas. Please upgrade your browser to HTML5.</canvas>
 		</div>
 		<div class="col-xs-6 col-md-4">
 			<h1>The Turtle Command</h1>
@@ -32,14 +32,13 @@
 				<label for="gridSize">Enter Grid size</label>
 				<input type="number" name="gridSize" value="5" class="form-control" id="grid_size">
 			</div>
-			<form class="form-inline">
 				<div class="form-group">
 					<label for="input">Input: </label>
-					<input type="text" name="input" placeholder="Eg. FFFRRFLF" class="form-control">
-					<button class="btn btn-primary">Go!</button>
+					<input type="text" id="input" placeholder="Eg. FFFRRFLF" class="form-control">
 				</div>
-			</form>
-			<h4>Output:</h4><span class="output">2,3 E</span>
+				<button class="btn btn-primary" id="go">Go!</button>
+				<button class="btn btn-primary" id="reset">Reset</button>
+			<h4>Output:</h4><span id="output">2,3 E</span>
 			<div class="row">
 				<div class="col-xs-12 col-md-12 center-block"><h3>Movement Keys</h3></div>
 				<div class="col-xs-12 col-md-12"><button id="movement_top" type="button" class="btn btn-primary center-block"><span class="glyphicon glyphicon-triangle-top"></span></button></div>
@@ -49,7 +48,7 @@
 		</div>
 		<div class="col-xs-6 col-md-4">
 			<h1>Output:</h1>
-			<textarea class="form-control" rows=24>Output:</textarea>
+			<textarea class="form-control" rows=24></textarea>
 		</div>
 	</div>
 </div>
