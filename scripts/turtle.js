@@ -4,6 +4,32 @@ $(document).ready(function() {
 		render();
 	});
 
+	var direction =  'N';
+	var directionset = 'NESW';
+	function findLeft(alpha) {
+		var pos = directionset.search(alpha);
+		if (pos == 0) 
+			return directionset[directionset.length - 1];
+		else
+			return directionset[pos - 1];
+	}
+	function findRight(alpha) {
+		var pos = directionset.search(alpha);
+		if (pos == directionset.length - 1) 
+			return directionset[0];
+		else
+			return directionset[pos + 1];
+	}
+	$('#movement_left').on("click", function() {
+		direction = findLeft(direction);
+	});
+	$('#movement_top').on("click", function() {
+		
+	});
+	$('#movement_right').on("click", function() {
+		direction = findRight(direction);
+		console.log(direction);
+	});
 });
 function render() {
 	n = $('#grid_size').val();
@@ -26,7 +52,7 @@ function render() {
 			canvasX: 0,
 			canvasY: 0,
 			obstacle: true
-		}
+		};
 	};
 	for(var i = 0; i < n; i++) {
 		main[i] = [];
@@ -64,11 +90,11 @@ function render() {
 	// Mark the turtle's starting point
 	markPoint(main[0][0]);
 
+	// Draw random n obstacles
 	var obstacles= [];
 	for (var i = 0; i < n; i++) {
 		var coords = getRandomCoords(1, n - 1);
 		var match = searchObstacles(coords, obstacles);
-		console.log(match);
 		if (match) {
 			i--;
 		}
@@ -166,9 +192,7 @@ function render() {
 	function searchObstacles(searchKey, obstacleArray) {
 		for (var i = 0; i < obstacleArray.length; i++) {
 			if(obstacleArray[i].x == searchKey.x && obstacleArray[i].y == searchKey.y)
-			{
 				return true;
-			}
 		}
 		return false;
 	}
