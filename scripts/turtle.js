@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	render();
+	$('#grid_size').on("change", function() {
+		render();
+	});
+
 });
 function render() {
 	n = $('#grid_size').val();
@@ -20,7 +24,8 @@ function render() {
 			y: y,
 			type: type,
 			canvasX: 0,
-			canvasY: 0
+			canvasY: 0,
+			obstacle: true
 		}
 	};
 	for(var i = 0; i < n; i++) {
@@ -56,8 +61,20 @@ function render() {
 			drawLine(context, main[i][j].canvasX, main[i][j].canvasY, main[i][j].type);
 		}
 	}
-	// Mark the tortoise's starting point
+	// Mark the turtle's starting point
 	markPoint(main[0][0]);
+
+	var obstacles= [];
+	for (var i = 0; i < n; i++) {
+		var coords = getRandomCoords(1, n - 1);
+		var match = searchObstacles(coords, obstacles);
+		console.log(match);
+		if (match) {
+			i--;
+		}
+		obstacles[obstacles.length] = coords;
+		drawObstacles(context, coords.x, coords.y);
+	}
 
 	function drawCircle(context, x, y) {
 		context.beginPath();
@@ -98,6 +115,7 @@ function render() {
 		context.stroke();
 		context.closePath();
 	}
+
 	var markedPoint;
 	function markPoint(mainObj) {
 		if(typeof(markedPoint) != "undefined") {
@@ -123,7 +141,35 @@ function render() {
 		context.closePath();
 		markedPoint = mainObj;
 	}
+
+	function getRandomCoords(min, max) {
+		return {
+			x: Math.floor(Math.random() * (max - min + 1)) + min,
+			y: Math.floor(Math.random() * (max - min + 1)) + min
+		};
+	}
+
+	function drawObstacles(context, i, j) {
+		var x = main[i][j].canvasX;
+		var y = main[i][j].canvasY;
+		main[i][j].obstacle = true;
+		context.beginPath();
+		context.moveTo(x, y);
+		context.strokeStyle = "green";
+		context.fillStyle = "green";
+		context.arc(x, y, 6, 0, 2 * Math.PI);
+		context.stroke();
+		context.fill();
+		context.closePath();
+	}
+
+	function searchObstacles(searchKey, obstacleArray) {
+		for (var i = 0; i < obstacleArray.length; i++) {
+			if(obstacleArray[i].x == searchKey.x && obstacleArray[i].y == searchKey.y)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
-$('#grid_size').on("change", function() {
-	render();
-});
