@@ -48,6 +48,8 @@
 					drawLine(context, main[i][j].canvasX, main[i][j].canvasY, main[i][j].type);
 				}
 			}
+			// Mark the tortoise's starting point
+			markPoint(main[0][0]);
 		}
 		else {
 			// Canvas is not supported.
@@ -92,6 +94,31 @@
 			}
 			context.stroke();
 			context.closePath();
+		}
+		var markedPoint;
+		function markPoint(mainObj) {
+			if(typeof(markedPoint) != "undefined") {
+				context.beginPath();
+				context.moveTo(markedPoint.canvasX, markedPoint.canvasY);
+				context.strokeStyle = "white";
+				context.fillStyle = "white";
+				context.arc(markedPoint.canvasX, markedPoint.canvasY, 6, 0, 2 * Math.PI);
+				context.stroke();
+				context.fill();
+				context.closePath();
+				markedPoint = undefined;
+			}
+			var x = mainObj.canvasX;
+			var y = mainObj.canvasY;
+			context.beginPath();
+			context.moveTo(x, y);
+			context.strokeStyle = "red";
+			context.fillStyle = "red";
+			context.arc(x, y, 6, 0, 2 * Math.PI);
+			context.stroke();
+			context.fill();
+			context.closePath();
+			markedPoint = mainObj;
 		}
 	}
 })(prompt("Please enter the size of the grid", 8));
