@@ -31,7 +31,7 @@
 			var context = canvas.getContext("2d");
 			var x = 10;
 			var y = canvas.height + 40;
-			// Draw circles
+			// Draw circles for grids
 			for(var i = 0; i < n; i++) {
 				y -= 50;
 				x = 10;
@@ -42,6 +42,7 @@
 					x+=50;
 				}
 			}
+			// Draw lines to connect circles and form grids
 			for(var i = 0; i < n; i++) {
 				for (var j = 0; j < n; j++) {
 					drawLine(context, main[i][j].canvasX, main[i][j].canvasY, main[i][j].type);
