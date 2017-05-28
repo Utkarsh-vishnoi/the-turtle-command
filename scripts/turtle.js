@@ -109,12 +109,6 @@ $(document).ready(function() {
 				obstacle: false
 			};
 		};
-		var spot = function (x, y) {
-			return {
-				x: x,
-				y: y
-			};
-		};
 		for(var i = 0; i < n; i++) {
 			main[i] = [];
 			for (var j = 0; j < n; j++) {
@@ -138,7 +132,7 @@ $(document).ready(function() {
 				drawCircle(context, x, y);
 				main[i][j].canvasX = x;
 				main[i][j].canvasY = y;
-				hotspots[hotspots.length] = spot(x, y);
+				hotspots[hotspots.length] = main[i][j];
 				x+=50;
 			}
 		}
@@ -329,8 +323,8 @@ $(document).ready(function() {
 
 		for (var i = 0; i < hotspots.length; i++) {
 			var h = hotspots[i];
-			var dx = mouseX - h.x;
-			var dy = mouseY - h.y;
+			var dx = mouseX - h.canvasX;
+			var dy = mouseY - h.canvasY;
 			var distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance < radius) {
 				showTip();
