@@ -270,6 +270,7 @@ $(document).ready(function() {
 	});
 	$("#reset").on("click", function() {
 		markPoint(context, main[0][0]);
+		direction = 'N';
 		output();
 	});
 });
