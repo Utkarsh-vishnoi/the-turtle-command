@@ -5,7 +5,9 @@ $(document).ready(function() {
 	}
 	var context = canvas.getContext("2d");
 	var direction =  'N';
+	var radius = 8;
 	var main = [];
+	var hotspots = [];
 	var markedPoint, curPos;
 	var directionset = 'NESW';
 	$('#movement_left').on("click", function() {
@@ -107,6 +109,12 @@ $(document).ready(function() {
 				obstacle: false
 			};
 		};
+		var spot = function (x, y) {
+			return {
+				x: x,
+				y: y
+			};
+		};
 		for(var i = 0; i < n; i++) {
 			main[i] = [];
 			for (var j = 0; j < n; j++) {
@@ -130,6 +138,7 @@ $(document).ready(function() {
 				drawCircle(context, x, y);
 				main[i][j].canvasX = x;
 				main[i][j].canvasY = y;
+				hotspots[hotspots.length] = spot(x, y);
 				x+=50;
 			}
 		}
@@ -248,7 +257,6 @@ $(document).ready(function() {
 
 	function drawCircle(context, x, y) {
 		context.beginPath();
-		var radius = 8;
 		context.lineWidth = 2;
 		context.strokeStyle = "black";
 		context.arc(x, y, radius, 0, 2*Math.PI);
