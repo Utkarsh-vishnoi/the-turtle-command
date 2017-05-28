@@ -333,7 +333,19 @@ $(document).ready(function() {
 			var dy = mouseY - h.y;
 			var distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance < radius) {
+				showTip();
+			}
+			else{
+				hideTip();
 			}
 		}
+	}
+
+	function showTip() {
+		// body...
+	}
+
+	function hideTip() {
+		// body...
 	}
 });
