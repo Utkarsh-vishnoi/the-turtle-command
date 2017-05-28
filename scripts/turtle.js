@@ -316,5 +316,24 @@ $(document).ready(function() {
 		}
 		console.append(data + (EOL ? '\n': ' '));
 	}
+
+	canvas.onmousemove = function(e) {
+		// Tell the browser we are handling the event
+		e.preventDefault();
+		e.stopPropagation();
+
+		var rect = canvas.getBoundingClientRect();
+
+		var mouseX = parseInt(e.clientX - rect.left);
+		var mouseY = parseInt(e.clientY - rect.top);
+
+		for (var i = 0; i < hotspots.length; i++) {
+			var h = hotspots[i];
+			var dx = mouseX - h.x;
+			var dy = mouseY - h.y;
+			var distance = Math.sqrt(dx * dx + dy * dy);
+			if (distance < radius) {
+			}
+		}
 	}
 });
