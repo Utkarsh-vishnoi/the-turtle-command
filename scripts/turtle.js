@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var canvas = document.getElementById('screen');
 	if (!canvas.getContext) {
-		alert("Oh, snap!");
+		logger("Warning: Canvas not supported. Upgrade your browser.");
 	}
 	var context = canvas.getContext("2d");
 	var direction =  'N';
@@ -16,16 +16,26 @@ $(document).ready(function() {
 	});
 
 	function left() {
+		logger("Left Turn: ");
+		logger("Current Direction: " + direction);
 		direction = findLeft(direction);
+		logger("New Direction: " + direction, true);
 		output();
 	}
 
 	function front() {
+		logger("Move front: ");
+		logger("Current Position: " + (curPos.x + 1) + ',' + (curPos.y + 1));
 		switch(direction) {
 			case "N":
 				if (curPos.x < n - 1) {
 					if(!main[curPos.x + 1][curPos.y].obstacle == true)
 						markPoint(context, main[curPos.x + 1][curPos.y]);
+					else
+						logger("Move not possible: Obstacle Ahead.");
+				}
+				else {
+					logger("Move not possible: Reached the end of the Y - Axis.");
 				}
 				break;
 
@@ -33,28 +43,44 @@ $(document).ready(function() {
 				if (curPos.x - 1 >= 0) {
 					if(!main[curPos.x - 1][curPos.y].obstacle == true)
 						markPoint(context, main[curPos.x - 1][curPos.y]);
+					else
+						logger("Move not possible: Obstacle Ahead.");
 				}
+				else
+					logger("Move not possible: Reached the end of the Y - Axis.");
 				break;
 
 			case "E":
 				if (curPos.y < n - 1) {
 					if(!main[curPos.x][curPos.y + 1].obstacle == true)
 						markPoint(context, main[curPos.x][curPos.y + 1]);
+					else
+						logger("Move not possible: Obstacle Ahead.");
 				}
+				else
+					logger("Move not possible: Reached the end of the X - Axis.");
 				break;
 
 			case "W":
 				if (curPos.y - 1 >= 0) {
 					if(!main[curPos.x][curPos.y - 1].obstacle == true)
 						markPoint(context, main[curPos.x][curPos.y - 1]);
+					else
+						logger("Move not possible: Obstacle Ahead.");
 				}
+				else
+					logger("Move not possible: Reached the end of the X - Axis.");
 				break;
 		}
+		logger("New Position: " + (curPos.x + 1) + ',' + (curPos.y + 1), true);
 		output();
 	}
 
 	function right() {
+		logger("Right Turn: ");
+		logger("Current Direction: " + direction);
 		direction = findRight(direction);
+		logger("New Direction: " + direction, true);
 		output();
 	}
 
@@ -233,6 +259,7 @@ $(document).ready(function() {
 	render();
 	$('#grid_size').on("change", function() {
 		render();
+		logger("Created new grid of " + $('#grid_size').val() + " X " + $('#grid_size').val(), true);
 	});
 	
 	function findLeft(alpha) {
@@ -271,9 +298,10 @@ $(document).ready(function() {
 	$("#reset").on("click", function() {
 		markPoint(context, main[0][0]);
 		direction = 'N';
+		logger("Grid reset successfull.", true);
 		output();
 	});
-	function logger(data) {
-		$("#console").append(data + '\n');
+	function logger(data, EOL=false) {
+		$("#console").append(data + (EOL ? '\n': ' '));
 	}
 });
