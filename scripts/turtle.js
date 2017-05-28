@@ -310,6 +310,11 @@ $(document).ready(function() {
 		output();
 	});
 	function logger(data, EOL=false) {
-		$("#console").append(data + (EOL ? '\n': ' '));
+		var console = $("#console");
+		if (console.length) {
+			console.scrollTop(console[0].scrollHeight - console.height());
+		}
+		console.append(data + (EOL ? '\n': ' '));
+	}
 	}
 });
