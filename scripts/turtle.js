@@ -273,4 +273,7 @@ $(document).ready(function() {
 		direction = 'N';
 		output();
 	});
+	function logger(data) {
+		$("#console").append(data + '\n');
+	}
 });
