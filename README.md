@@ -5,8 +5,8 @@ The grid was designed on canvas.
 The core problem has been solved.
 
 # Future Improvements
-Add color to the console.
-Add help page.
-Show co-ordinate on hover over the grid.
-Navigate the turtle through the keyboard
-Implement images of turtle and obstacles instead of circles.
+* Add color to the console.
+* Add help page.
+* Show co-ordinate on hover over the grid.
+* Navigate the turtle through the keyboard
+* Implement images of turtle and obstacles instead of circles.
