@@ -319,12 +319,12 @@ $(document).ready(function() {
 
 	$("#reset").on("click", function() {
 		reset();
+		logger("Grid reset successfull.", true);
 	});
 
 	function reset() {
 		markPoint(context, main[0][0]);
 		direction = 'N';
-		logger("Grid reset successfull.", true);
 		output();
 	}
 
