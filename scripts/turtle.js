@@ -5,7 +5,7 @@ $(document).ready(function() {
 	if (!canvas.getContext) {
 		logger("Warning: Canvas not supported. Upgrade your browser.");
 	}
-	
+
 	var context = canvas.getContext("2d");
 	var direction =  'N';
 	var radius = 8;
@@ -314,10 +314,10 @@ $(document).ready(function() {
 
 	var console = $("#console");
 	function logger(data, EOL=false) {
+		console.append(data + (EOL ? '\n': ' '));
 		if (console.length) {
 			console.scrollTop(console[0].scrollHeight - console.height());
 		}
-		console.append(data + (EOL ? '\n': ' '));
 	}
 
 	canvas.onmousemove = function(e) {
