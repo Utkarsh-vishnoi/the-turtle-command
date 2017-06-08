@@ -5,7 +5,7 @@ $(document).ready(function() {
 	if (!canvas.getContext) {
 		logger("Warning: Canvas not supported. Upgrade your browser.");
 	}
-
+	
 	var context = canvas.getContext("2d");
 	var direction =  'N';
 	var radius = 8;
@@ -351,4 +351,9 @@ $(document).ready(function() {
 	function hideTip() {
 		// body...
 	}
+
+	$("#console_clear").on("click", function () {
+		console.text("");
+		logger("Console cleared.", true);
+	});
 });
