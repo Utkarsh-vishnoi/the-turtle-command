@@ -288,35 +288,51 @@ $(document).ready(function() {
 	}
 
 	$("#go").on("click", function() {
+		reset();
 		var inputs = $("#input").val().toUpperCase();
 		var input = [];
 		for (i=0;i<inputs.length;i++) {
 			input[input.length] = inputs[i];
 		}
-		$.each(input, function(index, value) {
-			switch(value) {
-				case "F": front();
-					break;
-				case "R": right();
-					break;
-				case "L": left();
-					break;
-			}
-		});
+		go(input);
 	});
 
+	var timer = 1000;
+	var multiplier = 1;
+	function go(value) {
+		switch(value[0]) {
+			case "F": setTimeout(function() {front()}, timer * multiplier);
+				break;
+			case "R": setTimeout(function() {right()}, timer * multiplier);
+				break;
+			case "L": setTimeout(function() {left()}, timer * multiplier);
+				break;
+		}
+		if (value.length >=1) {
+			value.shift();
+			if (value.length != 0) {
+				multiplier++;
+				go(value);
+			} 
+		}
+	}
+
 	$("#reset").on("click", function() {
+		reset();
+	});
+
+	function reset() {
 		markPoint(context, main[0][0]);
 		direction = 'N';
 		logger("Grid reset successfull.", true);
 		output();
-	});
+	}
 
-	var console = $("#console");
+	var log = $("#console");
 	function logger(data, EOL=false) {
-		console.append(data + (EOL ? '\n': ' '));
-		if (console.length) {
-			console.scrollTop(console[0].scrollHeight - console.height());
+		log.append(data + (EOL ? '\n': ' '));
+		if (log.length) {
+			log.scrollTop(log[0].scrollHeight - log.height());
 		}
 	}
 
@@ -353,7 +369,7 @@ $(document).ready(function() {
 	}
 
 	$("#console_clear").on("click", function () {
-		console.text("");
+		log.text("");
 		logger("Console cleared.", true);
 	});
 });
