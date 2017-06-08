@@ -1,8 +1,11 @@
 $(document).ready(function() {
+
 	var canvas = document.getElementById('screen');
+
 	if (!canvas.getContext) {
 		logger("Warning: Canvas not supported. Upgrade your browser.");
 	}
+
 	var context = canvas.getContext("2d");
 	var direction =  'N';
 	var radius = 8;
@@ -10,9 +13,11 @@ $(document).ready(function() {
 	var hotspots = [];
 	var markedPoint, curPos;
 	var directionset = 'NESW';
+
 	$('#movement_left').on("click", function() {
 		left();
 	});
+
 	$('#movement_top').on("click", function() {
 		front();
 	});
@@ -89,9 +94,11 @@ $(document).ready(function() {
 	$('#movement_right').on("click", function() {
 		right();
 	});
+
 	function output() {
 		outputs.innerHTML = (curPos.x + 1) + "," + (curPos.y + 1) + " " + direction;
 	}
+
 	function render() {
 		n = $('#grid_size').val();
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -297,14 +304,16 @@ $(document).ready(function() {
 			}
 		});
 	});
+
 	$("#reset").on("click", function() {
 		markPoint(context, main[0][0]);
 		direction = 'N';
 		logger("Grid reset successfull.", true);
 		output();
 	});
+
+	var console = $("#console");
 	function logger(data, EOL=false) {
-		var console = $("#console");
 		if (console.length) {
 			console.scrollTop(console[0].scrollHeight - console.height());
 		}
