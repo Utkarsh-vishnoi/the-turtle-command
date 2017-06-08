@@ -288,6 +288,7 @@ $(document).ready(function() {
 	}
 
 	$("#go").on("click", function() {
+		resetTimeouts();
 		reset();
 		var inputs = $("#input").val().toUpperCase();
 		var input = [];
@@ -297,15 +298,25 @@ $(document).ready(function() {
 		go(input);
 	});
 
+	function resetTimeouts() {
+		for (var i = 0; i < timeouts.length; i++) {
+			clearTimeout(timeouts[i]);
+		}
+		timeouts = [];
+		timer = 1000;
+		multiplier = 1;
+	}
+
 	var timer = 1000;
 	var multiplier = 1;
+	var timeouts = [];
 	function go(value) {
 		switch(value[0]) {
-			case "F": setTimeout(function() {front()}, timer * multiplier);
+			case "F": timeouts.push(setTimeout(function() {front()}, timer * multiplier));
 				break;
-			case "R": setTimeout(function() {right()}, timer * multiplier);
+			case "R": timeouts.push(setTimeout(function() {right()}, timer * multiplier));
 				break;
-			case "L": setTimeout(function() {left()}, timer * multiplier);
+			case "L": timeouts.push(setTimeout(function() {left()}, timer * multiplier));
 				break;
 		}
 		if (value.length >=1) {
