@@ -290,6 +290,7 @@ $(document).ready(function() {
 	$("#go").on("click", function() {
 		resetTimeouts();
 		reset();
+		console_clear();
 		var inputs = $("#input").val().toUpperCase();
 		var input = [];
 		for (i=0;i<inputs.length;i++) {
@@ -380,7 +381,11 @@ $(document).ready(function() {
 	}
 
 	$("#console_clear").on("click", function () {
-		log.text("");
+		console_clear();
 		logger("Console cleared.", true);
 	});
+
+	function console_clear() {
+		log.text("");
+	}
 });
